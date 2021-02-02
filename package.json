@@ -21,7 +21,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "pm2_start": "pm2 start index.js",
-    "lint": "eslint src --fix"
+    "lint": "eslint . --fix"
   },
   "husky": {
     "hooks": {
@@ -29,6 +29,7 @@
     }
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "nodemon": "^2.0.7",
     "sequelize-cli": "^6.2.0"
   }

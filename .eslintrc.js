@@ -1,4 +1,3 @@
-/*eslint-disable*/
 module.exports = {
   extends: [
     'eslint:recommended', // eslint 권장사항 적용
@@ -13,5 +12,7 @@ module.exports = {
   },
   env: {
     es6: true,
+    browser: true,
+    node: true,
   },
-}
+};
