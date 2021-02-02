@@ -7,9 +7,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2017,
   },
-  "ignorePatterns": [
-    "node_modules/"
-  ],
+  ignorePatterns: ['node_modules/'],
   env: {
     es6: true,
   },
@@ -18,4 +16,3 @@ module.exports = {
     semi: ['error', 'always'], // ; 반드시 존재해야 함
   },
 };
-
