@@ -7,16 +7,19 @@ const logger = require('morgan');
 const fs = require('fs');
 const https = require('https');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT
 
 app.use(express.json());
 app.use(logger('dev'));
 app.use(cors());
 
 app.use(cookieParser());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
-const options = {};
+const options = {
+  key: fs.readFileSync(__dirname + '/../.certification/key.pem'),
+  cert: fs.readFileSync(__dirname + '/../.certification/cert.pem'),
+};
 
 const server = https.createServer(options, app).listen(PORT);
 
