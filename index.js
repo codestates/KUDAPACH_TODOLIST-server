@@ -4,8 +4,6 @@ const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const fs = require('fs');
-const https = require('https');
 
 const router = require('./routes');
 
@@ -28,11 +26,5 @@ app.use('/', router);
 app.post('/', (req, res) => res.status(200).send('hey'));
 app.get('/', (req, res) => res.status(200).send('ok'));
 
-const options = {
-  key: fs.readFileSync(__dirname + '/../.certification/key.pem', 'utf-8'),
-  cert: fs.readFileSync(__dirname + '/../.certification/cert.pem', 'utf-8'),
-};
-
-const server = https.createServer(options, app).listen(PORT);
-
-module.exports = server;
+app.listen(PORT);
+module.exports = app;
