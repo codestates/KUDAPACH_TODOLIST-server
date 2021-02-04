@@ -13,18 +13,11 @@ module.exports = {
           mobile,
         },
       })
-      .then(([result, created]) => {
-        const { email, username, mobile } = result;
-        if (!created) {
+      .then((result) => {
+        if (!result[1]) {
           res.status(409).send('Duplicate email exists');
         } else {
-          res.status(200).json({
-            data: {
-              email,
-              username,
-              mobile,
-            },
-          });
+          res.status(200).send('Succesfully signed up');
         }
       })
       .catch((err) => res.status(500).send(err));
