@@ -20,9 +20,9 @@ module.exports = {
         if (!data) {
           return res.status(401).send('Invalid email or wrong password');
         }
-        delete data.password;
-        const accessToken = generateAccessToken(data);
-        const refreshToken = generateRefreshToken(data);
+        delete data.dataValues.password;
+        const accessToken = generateAccessToken(data.dataValues);
+        const refreshToken = generateRefreshToken(data.dataValues);
 
         sendRefreshToken(res, refreshToken);
         sendAccessToken(res, accessToken, 'Sign in successful!');
