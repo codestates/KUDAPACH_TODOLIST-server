@@ -25,10 +25,10 @@ router.post('/todo/edit', controllers.todo.edit);
 // * POST https://www.kudapach.com/todo/calendar
 router.post('/todo/calendar', controllers.todo.calendar);
 
-// * POST https://www.kudapach.com/group
+// * GET https://www.kudapach.com/group
 router.post('/group', controllers.group.post);
 
-// * POST https://www.kudapach.com/group/:groupid
-router.post('/group/:groupid', controllers.group.redirect);
+// * POST https://www.kudapach.com/setting/group/edit
+router.post('/group/:groupid', controllers.setting.post);
 
 module.exports = router;
