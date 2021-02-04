@@ -11,13 +11,13 @@ router.post('/signin', controllers.signin.post);
 router.post('/signup', controllers.signup.post);
 
 // * GET https://www.kudapach.com/user/info
-router.get('/user/info', controllers.user.post);
+router.get('/user/info', controllers.user.get);
 
 // * POST https://www.kudapach.com/user/info/edit
 router.post('/user/info/edit', controllers.user.edit);
 
 // * GET https://www.kudapach.com/todo
-router.get('/todo', controllers.todo.post);
+router.get('/todo', controllers.todo.get);
 
 // * POST https://www.kudapach.com/todo/edit
 router.post('/todo/edit', controllers.todo.edit);
@@ -26,7 +26,7 @@ router.post('/todo/edit', controllers.todo.edit);
 router.post('/todo/calendar', controllers.todo.calendar);
 
 // * GET https://www.kudapach.com/group
-router.post('/group', controllers.group.post);
+router.get('/group', controllers.group.get);
 
 // * POST https://www.kudapach.com/setting/group/edit
 router.post('/group/:groupid', controllers.setting.post);
