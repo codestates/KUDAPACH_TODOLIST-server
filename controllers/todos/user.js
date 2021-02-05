@@ -13,17 +13,10 @@ module.exports = {
       .then((data) => {
         if (!data) {
           res.status(401).send('access token has been tempered');
+        } else {
+          delete data.dataValues.password;
+          res.status(200).json({ data: data.dataValues });
         }
-
-        const { id, email, username, mobile } = data;
-        res.status(200).json({
-          data: {
-            id,
-            email,
-            username,
-            mobile,
-          },
-        });
       })
       .catch((err) => {
         res.status(500).send(err);
