@@ -10,6 +10,9 @@ router.post('/signin', controllers.signin.post);
 // * POST https://server.kudapach.com/signup
 router.post('/signup', controllers.signup.post);
 
+// * POST https://server.kudapach.com/signout
+router.post('/group/:groupid', controllers.signout);
+
 // * GET https://server.kudapach.com/user/info
 router.get('/user/info', controllers.user.get);
 
