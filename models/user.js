@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.user.hasMany(models.todocard, { onDelete: 'cascade' });
       models.user.hasMany(models.users_groups, { onDelete: 'cascade' });
-      models.user.hasMany(models.grouptodocard, { onDelete: 'cascade' });
     }
   }
   user.init(

@@ -11,18 +11,12 @@ module.exports = {
       },
       userid: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'users',
-          key: 'id',
-        },
-        onDelete: 'cascade',
-        onUpdate: 'cascade',
       },
       groupid: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'todogroups',
-          key: 'id',
+          model: 'users_groups',
+          key: 'groupid',
         },
         onDelete: 'cascade',
         onUpdate: 'cascade',
