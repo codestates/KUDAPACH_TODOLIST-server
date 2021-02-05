@@ -13,13 +13,14 @@ app.use(logger('dev'));
 app.use(
   cors({
     origin: ['https://*.kudapach.com'],
-    method: ['GET', 'POST'],
+    method: ['GET', 'POST', 'OPTION'],
     credentials: true,
   }),
 );
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.get('/', (req, res) => res.send('ok'));
 
 app.use('/', router);
 
