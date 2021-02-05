@@ -32,17 +32,16 @@ module.exports = {
 
   edit: async (req, res) => {
     const { id, username, mobile, password } = req.body;
-    user
-      .update({ username, mobile, password }, { where: { id } })
-      .then((data) => {
-        const { id, username, mobile } = data;
-        res.status(200).json({
-          data: {
-            id,
-            username,
-            mobile,
-          },
-        });
+    if (!password) {
+      await user.update({ username, mobile }, { where: { id } });
+    } else {
+      await user.update({ username, mobile, password }, { where: { id } });
+    }
+
+    await user
+      .findOne({ where: { id } })
+      .then(() => {
+        res.status(200).send('Succesfully updated');
       })
       .catch((err) => res.status(500).send(err));
   },
