@@ -9,8 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.todocard.belongsTo(models.user, { foreignKey: 'id' });
-      models.todocard.belongsTo(models.todogroup, { foreignKey: 'id' });
+      models.grouptodocard.belongsTo(models.users_groups, {
+        foreignKey: 'groupid',
+      });
     }
   }
   grouptodocard.init(
