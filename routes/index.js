@@ -28,8 +28,8 @@ router.post('/todo/edit', controllers.todo.edit);
 // * POST https://server.kudapach.com/todo/calendar
 router.post('/todo/calendar', controllers.todo.calendar);
 
-// * GET https://server.kudapach.com/group
-router.get('/group', controllers.group.get);
+// * POST https://server.kudapach.com/group
+router.post('/group', controllers.group.post);
 
 // * POST https://server.kudapach.com/setting/group/edit
 router.post('/group/:groupid', controllers.setting.post);
