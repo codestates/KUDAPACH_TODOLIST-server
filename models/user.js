@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.user.hasMany(models.todocard, { onDelete: 'cascade' });
-      models.user.hasMany(models.users_groups, { onDelete: 'cascade' });
+      models.user.hasMany(models.users_grouptodo, { onDelete: 'cascade' });
     }
   }
   user.init(

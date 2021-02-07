@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class users_groups extends Model {
+  class users_grouptodo extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,19 +9,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.users_groups.belongsTo(models.user, { foreignKey: 'id' });
-      models.users_groups.belongsTo(models.grouptodocard, { foreignKey: 'id' });
+      models.users_grouptodo.belongsTo(models.user, { foreignKey: 'id' });
+      models.users_grouptodo.belongsTo(models.grouptodocard, {
+        foreignKey: 'id',
+      });
     }
   }
-  users_groups.init(
+  users_grouptodo.init(
     {
       userid: DataTypes.NUMBER,
       grouptodoid: DataTypes.NUMBER,
     },
     {
       sequelize,
-      modelName: 'users_groups',
+      modelName: 'users_grouptodo',
     },
   );
-  return users_groups;
+  return users_grouptodo;
 };

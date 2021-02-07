@@ -2,7 +2,7 @@
 /*eslint-disable*/
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users_groups', {
+    await queryInterface.createTable('users_grouptodos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users_groups');
+    await queryInterface.dropTable('users_grouptodos');
   },
 };
