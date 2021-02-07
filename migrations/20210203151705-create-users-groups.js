@@ -18,7 +18,7 @@ module.exports = {
         onDelete: 'cascade',
         onUpdate: 'cascade',
       },
-      groupid: {
+      grouptodoid: {
         type: Sequelize.INTEGER,
         references: {
           model: 'grouptodocards',
