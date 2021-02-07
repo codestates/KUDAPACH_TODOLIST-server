@@ -2,7 +2,7 @@
 /*eslint-disable*/
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('grouptodocards', {
+    await queryInterface.createTable('group_todocards', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,7 +12,7 @@ module.exports = {
       groupid: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'groupinfos',
+          model: 'group_infos',
           key: 'id',
         },
         onDelete: 'cascade',
@@ -27,16 +27,14 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('grouptodocards');
+    await queryInterface.dropTable('group_todocards');
   },
 };

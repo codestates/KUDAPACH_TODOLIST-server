@@ -2,7 +2,7 @@
 /*eslint-disable*/
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('groupinfos', {
+    await queryInterface.createTable('group_infos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,16 +16,14 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date()
       },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('groupinfos');
+    await queryInterface.dropTable('group_infos');
   },
 };
