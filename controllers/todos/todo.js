@@ -1,4 +1,4 @@
-const { user, todocard, grouptodocard } = require('../../models');
+const { user, todocard /*, grouptodocard*/ } = require('../../models');
 
 module.exports = {
   get: async (req, res) => {
@@ -25,12 +25,12 @@ module.exports = {
         .then((data) => res.send({ data: data.dataValues }));
     }
   },
-  calendar: async (req, res) => {
-    const { date } = req.body;
-    await grouptodocard
-      .fideAll({
-        where: { createdAt: date },
-      })
-      .then();
-  },
+  // calendar: async (req, res) => {
+  //   const { date } = req.body;
+  //   await grouptodocard
+  //     .fideAll({
+  //       where: { createdAt: date },
+  //     })
+  //     .then();
+  // },
 };
