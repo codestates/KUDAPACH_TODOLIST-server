@@ -1,19 +1,18 @@
-const { todogroup, users_groups, grouptodocard } = require('../../models');
-const { isAuthorized } = require('../tokenfunction');
+const {
+  user,
+  todogroup,
+  users_groups,
+  grouptodocard,
+} = require('../../models');
 
 module.exports = {
-  get: (req, res) => {
-    const accessTokenData = isAuthorized(req);
-    if (!accessTokenData) {
-      res.status(401).send('invalid access token');
-    }
-    const { id, group } = accessTokenData;
+  post: async (req, res) => {
+    const { group, email } = req.body;
     // N : 1로 하면, 배열 안에 값이 들어간다
     if (group) {
-      users_groups
+      await user
         .findOne({
-          where: { userid: id },
-          // 먼저 조인 테이블에서 해당 userid를 뽑아내어, 그 유저가 포함된 groupid를 찾아준다
+          where: { email },
         })
         .then((data) => {
           // 1 : N인 users_groups과 grouptodocards에서 groupid에 속해진 todocards를 배열로 가지고 온다
@@ -35,6 +34,7 @@ module.exports = {
             ],
           });
         })
+        .then((data) => res.status(200).json(data))
         .catch((err) => res.status(500).send(err));
     } else {
       res.status(400).send('User does not part of any groups');
