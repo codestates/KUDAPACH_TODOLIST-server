@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.grouptodocard.belongsTo(models.todogroup, {
+      models.grouptodocard.belongsTo(models.groupinfo, {
         foreignKey: 'groupid',
       });
-      models.grouptodocard.hasMany(models.users_groups, {
+      models.grouptodocard.hasMany(models.users_grouptodo, {
         onDelete: 'cascade',
       });
     }
