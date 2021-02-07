@@ -7,6 +7,14 @@ module.exports = {
     database: process.env.DATABASE,
     host: process.env.HOST,
     dialect: 'mysql',
+    dialectOptions: {
+      charset: 'utf8mb4',
+      dateStrings: true,
+      typeCast: true,
+    },
+    define: {
+      timestamps: true,
+    },
   },
   test: {
     username: process.env.USERNAME,
