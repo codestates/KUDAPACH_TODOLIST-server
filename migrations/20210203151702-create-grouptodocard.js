@@ -15,8 +15,8 @@ module.exports = {
       groupid: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'users_groups',
-          key: 'groupid',
+          model: 'todogroups',
+          key: 'id',
         },
         onDelete: 'cascade',
         onUpdate: 'cascade',

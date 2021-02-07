@@ -10,10 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.users_groups.belongsTo(models.user, { foreignKey: 'id' });
-      models.users_groups.belongsTo(models.todogroup, { foreignKey: 'id' });
-      models.users_groups.hasMany(models.grouptodocard, {
-        onDelete: 'cascade',
-      });
+      models.users_groups.belongsTo(models.grouptodocard, { foreignKey: 'id' });
     }
   }
   users_groups.init(

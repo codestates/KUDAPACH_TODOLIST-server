@@ -19,8 +19,8 @@ router.get('/user/info', controllers.user.get);
 // * POST https://server.kudapach.com/user/info/edit
 router.post('/user/info/edit', controllers.user.edit);
 
-// * GET https://server.kudapach.com/todo
-router.get('/todo', controllers.todo.get);
+// * POST https://server.kudapach.com/todo
+router.post('/todo', controllers.todo.get);
 
 // * POST https://server.kudapach.com/todo/edit
 router.post('/todo/edit', controllers.todo.edit);
