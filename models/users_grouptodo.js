@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   users_grouptodo.init(
     {
       userid: DataTypes.NUMBER,
-      groupid: DataTypes.NUMBER,
+      grouptodoid: DataTypes.NUMBER,
     },
     {
       sequelize,
