@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class groupinfo extends Model {
+  class group_info extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.groupinfo.hasMany(models.grouptodocard, { onDelete: 'cascade' });
+      models.group_info.hasMany(models.group_todocard, { onDelete: 'cascade' });
     }
   }
-  groupinfo.init(
+  group_info.init(
     {
       groupname: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: 'groupinfo',
+      modelName: 'group_info',
     },
   );
-  return groupinfo;
+  return group_info;
 };

@@ -3,12 +3,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('users_grouptodos', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
       userid: {
         type: Sequelize.INTEGER,
         references: {
@@ -21,22 +15,12 @@ module.exports = {
       grouptodoid: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'grouptodocards',
-          key: 'id',
+          model: 'group_todocards',
+          key: 'groupid',
         },
         onDelete: 'cascade',
         onUpdate: 'cascade',
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: new Date()
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: new Date()
-      },
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

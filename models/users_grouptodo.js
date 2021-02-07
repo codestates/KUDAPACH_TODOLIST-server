@@ -10,15 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.users_grouptodo.belongsTo(models.user, { foreignKey: 'id' });
-      models.users_grouptodo.belongsTo(models.grouptodocard, {
-        foreignKey: 'id',
+      models.users_grouptodo.belongsTo(models.group_todocard, {
+        foreignKey: 'groupid',
       });
     }
   }
   users_grouptodo.init(
     {
       userid: DataTypes.NUMBER,
-      grouptodoid: DataTypes.NUMBER,
+      groupid: DataTypes.NUMBER,
     },
     {
       sequelize,
