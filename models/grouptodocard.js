@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   grouptodocard.init(
     {
-      userid: DataTypes.NUMBER,
       groupid: DataTypes.NUMBER,
       text: DataTypes.STRING,
       color: DataTypes.STRING,

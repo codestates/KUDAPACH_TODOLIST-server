@@ -9,9 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userid: {
-        type: Sequelize.INTEGER,
-      },
       groupid: {
         type: Sequelize.INTEGER,
         references: {
