@@ -32,4 +32,18 @@ module.exports = {
       data: groupCards,
     });
   },
+
+  edit: async (req, res) => {
+    const { id, trash, text, color } = req.body;
+    if (trash) {
+      await group_todocard.destroy({
+        where: { id },
+      });
+    } else {
+      await group_todocard.update({ text, color }, { where: { id } });
+      await group_todocard
+        .findOne({ where: { id } })
+        .then((data) => res.status(200).json({ data: data.dataValues }));
+    }
+  },
 };
