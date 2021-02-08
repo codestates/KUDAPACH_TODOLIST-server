@@ -36,4 +36,8 @@ router.post('/group/:groupid', controllers.setting.post);
 
 // * POST https://server.kudapach.com/group/todo/edit
 router.post('/group/todo/edit', controllers.group.edit);
+
+// * POST https://server.kudapach.com/signout
+router.post('/signout', controllers.signout);
+
 module.exports = router;
