@@ -39,11 +39,14 @@ module.exports = {
       await group_todocard.destroy({
         where: { id },
       });
+      res.status(200).send('succesfully deleted');
     } else {
       await group_todocard.update({ text, color }, { where: { id } });
-      await group_todocard
-        .findOne({ where: { id } })
-        .then((data) => res.status(200).json({ data: data.dataValues }));
+      const cards = await group_todocard.findOne({
+        where: { id },
+        attributes: ['id', 'text', 'color'],
+      });
+      res.status(200).json({ data: cards.dataValues });
     }
   },
 };
