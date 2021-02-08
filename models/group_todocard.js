@@ -12,9 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       models.group_todocard.belongsTo(models.group_info, {
         foreignKey: 'groupid',
       });
-      models.group_todocard.hasMany(models.users_grouptodo, {
-        onDelete: 'cascade',
-      });
     }
   }
   group_todocard.init(

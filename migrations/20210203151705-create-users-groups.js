@@ -2,7 +2,7 @@
 /*eslint-disable*/
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users_grouptodos', {
+    await queryInterface.createTable('users_groups', {
       userid: {
         type: Sequelize.INTEGER,
         references: {
@@ -15,8 +15,8 @@ module.exports = {
       groupid: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'group_todocards',
-          key: 'groupid',
+          model: 'group_infos',
+          key: 'id',
         },
         onDelete: 'cascade',
         onUpdate: 'cascade',
@@ -24,6 +24,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users_grouptodos');
+    await queryInterface.dropTable('users_groups');
   },
 };
