@@ -11,7 +11,7 @@ router.post('/signin', controllers.signin.post);
 router.post('/signup', controllers.signup.post);
 
 // * POST https://server.kudapach.com/signout
-router.post('/group/:groupid', controllers.signout);
+router.post('/signout', controllers.signout);
 
 // * GET https://server.kudapach.com/user/info
 router.get('/user/info', controllers.user.get);
@@ -36,8 +36,5 @@ router.post('/setting/group/edit', controllers.setting.post);
 
 // * POST https://server.kudapach.com/group/todo/edit
 router.post('/group/todo/edit', controllers.group.edit);
-
-// * POST https://server.kudapach.com/signout
-router.post('/signout', controllers.signout);
 
 module.exports = router;
