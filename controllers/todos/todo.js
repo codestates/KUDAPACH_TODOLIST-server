@@ -1,4 +1,4 @@
-const { user, todocard } = require('../../models');
+const { user, todocard, sequelize } = require('../../models');
 
 module.exports = {
   get: async (req, res) => {
@@ -25,31 +25,10 @@ module.exports = {
         .then((data) => res.send({ data: data.dataValues }));
     }
   },
+  calendar: async (req, res) => {
+    const { date } = req.body;
+    await sequelize
+      .query(`select * from todocards where DATE(createdAt) = DATE(${date});`)
+      .then((data) => res.send(data));
+  },
 };
-//   calendar: async (req, res) => {
-//     const { date } = req.body;
-//     await todocard.findAll({
-//       where:
-//     });
-//   },
-// };
-
-/*
-select * from TABLE_NAME where DATE(TIMESTAMP_COLUMN) = DATE('2019-01-30')
-
-
-예를 들어 ProgressStatus가 000이고, 날짜/시간이  '2019-11-12 11:59'이상이고 '2019-11-13 11:59' 미만일때의 정보를 출력한다면?
-where: sequelize.or(
-        {
-          CompareStartTimes: {
-            [sequelize.Op.gte]:
-              param.popupStartDate + ' ' + param.popupStartTime,
-          },
-        },
-        {
-          CompareEndTimes: {
-            [sequelize.Op.lte]: param.popupEndDate + ' ' + param.popupEndTime,
-          },
-        },
-      ),
-*/
