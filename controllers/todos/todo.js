@@ -21,7 +21,7 @@ module.exports = {
     } else {
       await todocard.update({ text, color }, { where: { id } });
       await todocard
-        .findOne({ where: { id } })
+        .findOne({ where: { id } }, { attributes: ['id', 'text', 'color'] })
         .then((data) => res.send({ data: data.dataValues }));
     }
   },
