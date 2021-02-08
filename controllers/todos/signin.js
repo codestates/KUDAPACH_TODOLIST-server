@@ -19,13 +19,17 @@ module.exports = {
       .then((data) => {
         if (!data) {
           return res.status(401).send('Invalid email or wrong password');
-        }
-        delete data.dataValues.password;
-        const accessToken = generateAccessToken(data.dataValues);
-        const refreshToken = generateRefreshToken(data.dataValues);
+        } else {
+          delete data.dataValues.password;
+          delete data.dataValues.createdAt;
+          delete data.dataValues.updatedAt;
 
-        sendRefreshToken(res, refreshToken);
-        sendAccessToken(res, accessToken, 'Sign in successful!');
+          const accessToken = generateAccessToken(data.dataValues);
+          const refreshToken = generateRefreshToken(data.dataValues);
+
+          sendRefreshToken(res, refreshToken);
+          sendAccessToken(res, accessToken, 'Sign in successful!');
+        }
       })
       .catch((err) => {
         res.status(500).send(err);
