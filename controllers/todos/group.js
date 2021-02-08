@@ -1,8 +1,8 @@
 const {
   user,
-  todogroup,
-  users_groups,
-  grouptodocard,
+  group_info,
+  users_grouptodo,
+  group_todocard,
 } = require('../../models');
 
 module.exports = {
@@ -17,17 +17,17 @@ module.exports = {
         .then((data) => {
           // 1 : N인 users_groups과 grouptodocards에서 groupid에 속해진 todocards를 배열로 가지고 온다
           // N : 1인 users_groups과 todogroups에서 groupname으로 칭하며 groupname을 찾아준다
-          grouptodocard.findAll({
+          users_grouptodo.findOne({
             include: [
               {
-                model: users_groups,
+                model: group_todocard,
                 as: 'data',
-                where: { groupid: data.groupid },
+                where: { groupid: data.dataValues.groupid },
                 include: [
                   {
-                    model: todogroup,
+                    model: group_info,
                     as: 'groupname',
-                    where: { id: data.groupid },
+                    where: { id: data.dataValues.groupid },
                   },
                 ],
               },
