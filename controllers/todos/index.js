@@ -1,4 +1,5 @@
 module.exports = {
+  oauth: require('./oauth'),
   signin: require('./signin'),
   signup: require('./signup'),
   signout: require('./signout'),
