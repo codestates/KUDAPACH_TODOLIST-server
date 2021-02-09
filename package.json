@@ -5,6 +5,7 @@
   "dependencies": {
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",

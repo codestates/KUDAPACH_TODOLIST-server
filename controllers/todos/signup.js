@@ -1,8 +1,10 @@
 const { user } = require('../../models');
-
+const SHA256 = require('crypto-js/sha256');
 module.exports = {
   post: async (req, res) => {
-    const { email, password, username, mobile } = req.body;
+    const { email, username, mobile } = req.body;
+    let { password } = req.body;
+    password = SHA256(password);
 
     user
       .findOrCreate({
