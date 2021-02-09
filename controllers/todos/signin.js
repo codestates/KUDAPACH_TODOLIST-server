@@ -1,10 +1,4 @@
 const { user } = require('../../models');
-const {
-  generateAccessToken,
-  generateRefreshToken,
-  sendRefreshToken,
-  sendAccessToken,
-} = require('../tokenfunction');
 
 module.exports = {
   post: async (req, res) => {
@@ -23,12 +17,16 @@ module.exports = {
           delete data.dataValues.password;
           delete data.dataValues.createdAt;
           delete data.dataValues.updatedAt;
-
-          const accessToken = generateAccessToken(data.dataValues);
-          const refreshToken = generateRefreshToken(data.dataValues);
-
-          sendRefreshToken(res, refreshToken);
-          sendAccessToken(res, accessToken, 'Sign in successful!');
+          // 그룹 리스트까지도 보내줘야함
+          res
+            .cookie('id', data.dataValues.id, {
+              domain: ['https://kudapach.com', 'https://www.kudapach.com'],
+              path: '/',
+              sameSite: 'none',
+              httpOnly: true,
+              secure: true,
+            })
+            .send({ data: data, message: 'Sign in successful!' });
         }
       })
       .catch((err) => {
