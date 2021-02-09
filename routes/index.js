@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { controllers } = require('../controllers');
 
-// * OAUTH_GOOGLE https://server.kudapach.com/oauth
+// * OAUTH https://server.kudapach.com/oauth
 router.post('/oauth/google', controllers.oauth.post);
 
 // * POST https://server.kudapach.com/signin
