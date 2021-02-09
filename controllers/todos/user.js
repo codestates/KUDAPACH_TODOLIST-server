@@ -1,18 +1,13 @@
 const { user } = require('../../models');
-const { isAuthorized } = require('../tokenfunction');
 
 module.exports = {
   get: async (req, res) => {
-    const accessTokenData = isAuthorized(req);
-    if (!accessTokenData) {
-      res.status(401).send('invalid access token');
-    }
-    const { email } = accessTokenData;
+    const id = req.cookies.id;
     user
-      .findOne({ where: email })
+      .findOne({ where: id })
       .then((data) => {
         if (!data) {
-          res.status(401).send('access token has been tempered');
+          res.status(401).send('cookie err');
         } else {
           delete data.dataValues.password;
           res.status(200).json({ data: data.dataValues });
@@ -24,15 +19,20 @@ module.exports = {
   },
 
   edit: async (req, res) => {
-    const { id, username, mobile, password } = req.body;
+    const { username, mobile, password } = req.body;
     if (!password) {
-      await user.update({ username, mobile }, { where: { id } });
+      await user.update(
+        { username, mobile },
+        { where: { id: req.cookies.id } },
+      );
     } else {
-      await user.update({ username, mobile, password }, { where: { id } });
+      await user.update(
+        { username, mobile, password },
+        { where: { id: req.cookies.id } },
+      );
     }
-
     await user
-      .findOne({ where: { id } })
+      .findOne({ where: { id: req.cookies.id } })
       .then(() => {
         res.status(200).send('Succesfully updated');
       })

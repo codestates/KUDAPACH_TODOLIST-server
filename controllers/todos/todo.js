@@ -3,12 +3,16 @@ const { user, todocard, sequelize } = require('../../models');
 module.exports = {
   get: async (req, res) => {
     const { email } = req.body;
-    await todocard
-      .fideAll({
-        include: [{ model: user, where: { email } }],
+    await user
+      .findOne({
+        where: { email },
       })
-      .then((data) => res.status(200).send({ data: data.dataValues }))
-      .catch((err) => res.status(500).send(err).send('Is not authorize'));
+      .then((data) =>
+        todocard
+          .findAll({ where: { userid: data.id } })
+          .then((data) => res.status(200).send({ data: data }))
+          .catch((err) => res.status(500).send(err)),
+      );
   },
   edit: async (req, res) => {
     const { id, trash, text, color } = req.body;
@@ -27,6 +31,7 @@ module.exports = {
   },
   calendar: async (req, res) => {
     const { date } = req.body;
+    // date form 2020-02-02
     await sequelize
       .query(`select * from todocards where DATE(createdAt) = DATE(${date});`)
       .then((data) => res.send(data));
