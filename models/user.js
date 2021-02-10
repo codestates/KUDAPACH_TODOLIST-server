@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       password: DataTypes.STRING,
       username: DataTypes.STRING,
       mobile: DataTypes.STRING,
-      group: DataTypes.BOOLEAN,
+      group: DataTypes.INTEGER,
     },
     {
       sequelize,
