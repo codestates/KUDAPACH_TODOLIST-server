@@ -6,11 +6,11 @@ const {
 } = require('../../models');
 
 module.exports = {
-  post: async (req, res) => {
+  get: async (req, res) => {
     const id = req.cookies.id;
-    const groupid = await users_groups.findOne({ where: { id } });
+    const groupid = await users_groups.findOne({ where: { userid: id } });
     const groupname = await group_info.findOne({
-      where: { id: groupid.dataValues.id },
+      where: { id: groupid.dataValues.groupid },
     });
     const groupCards = await group_todocard.findAll({
       where: { groupid: groupname.dataValues.id },
