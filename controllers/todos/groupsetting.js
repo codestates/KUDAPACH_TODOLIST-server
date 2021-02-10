@@ -1,6 +1,10 @@
 const { user, users_groups, group_info } = require('../../models');
 
 module.exports = {
+  get: (req, res) => {
+    res.send('ok');
+  },
+
   create: async (req, res) => {
     const { emails, groupname } = req.body;
 
