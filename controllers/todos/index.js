@@ -5,6 +5,6 @@ module.exports = {
   signout: require('./signout'),
   user: require('./user'),
   todo: require('./todo'),
-  group: require('./group'),
-  setting: require('./setting'),
+  grouptodocard: require('./grouptodocard'),
+  groupsetting: require('./groupsetting'),
 };
