@@ -1,7 +1,7 @@
 const { user, users_groups, group_info } = require('../../models');
 
 module.exports = {
-  post: async (req, res) => {
+  create: async (req, res) => {
     const { emails, groupname } = req.body;
 
     const userList = await Promise.all(
@@ -34,5 +34,9 @@ module.exports = {
         }
       })
       .catch((err) => res.status(500).send(err));
+  },
+
+  edit: (req, res) => {
+    res.send('ok');
   },
 };

@@ -31,13 +31,16 @@ router.post('/todo/edit', controllers.todo.edit);
 // * POST https://server.kudapach.com/todo/calendar
 router.post('/todo/calendar', controllers.todo.calendar);
 
-// * GET https://server.kudapach.com/group
-router.get('/group', controllers.group.get);
+// * GET https://server.kudapach.com/grouptodocard
+router.get('/grouptodocard', controllers.grouptodocard.get);
 
-// * POST https://server.kudapach.com/setting/group/edit
-router.post('/setting/group/edit', controllers.setting.post);
+// * POST https://server.kudapach.com/grouptodocard/edit
+router.post('/grouptodocard/edit', controllers.grouptodocard.edit);
 
-// * POST https://server.kudapach.com/group/todo/edit
-router.post('/group/todo/edit', controllers.group.edit);
+// * POST https://server.kudapach.com/groupsetting/create
+router.post('/groupsetting/create', controllers.groupsetting.create);
+
+// * POST https://server.kudapach.com/groupsetting/edit
+router.post('/groupsetting/edit', controllers.groupsetting.edit);
 
 module.exports = router;
