@@ -28,7 +28,7 @@ module.exports = {
       group: {
         allowNull: false,
         defaultValue: false,
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

@@ -1,46 +1,157 @@
-const { user, users_groups, group_info } = require('../../models');
+const {
+  user,
+  users_groups,
+  group_info,
+  group_todocard,
+} = require('../../models');
 
 module.exports = {
-  get: (req, res) => {
-    res.send('ok');
+  post: async (req, res) => {
+    const { groupname } = req.body;
+
+    const groupid = await group_info.findOne({
+      where: { groupname },
+      attributes: ['id'],
+    });
+
+    const userIds = await users_groups.findAll({
+      where: { groupid: groupid.dataValues.id },
+      attributes: ['userid'],
+    });
+
+    const emails = await Promise.all(
+      userIds.map((el) =>
+        user.findOne({
+          where: { id: el.dataValues.userid },
+          attributes: ['email'],
+        }),
+      ),
+    );
+
+    res.status(200).json({
+      groupname: req.body.groupname,
+      emails,
+    });
   },
 
   create: async (req, res) => {
     const { emails, groupname } = req.body;
 
-    const userList = await Promise.all(
-      emails.map((email) => user.findOne({ where: { email } })),
-    ).then((data) =>
-      data.map((email) => {
-        if (email === null) res.status(409).send('email does not exist');
-        else return email;
-      }),
-    );
-
     await Promise.all(
-      emails.map((email) => user.update({ group: true }, { where: { email } })),
-    );
+      emails.map((email) =>
+        user.findOne({ where: { email }, attributes: ['id'] }),
+      ),
+    ).then(async (data) => {
+      // ? -1이면, 모든 이메일 valid, 양수가 나오면 특정 이메일이 invalid
+      const indexNull = data.indexOf(null);
+      if (indexNull !== -1) {
+        return res.status(409).send('invalid email');
+      } else {
+        await Promise.all(
+          data.map((el) =>
+            user.increment('group', { where: { id: el.dataValues.id } }),
+          ),
+        );
+        const groupid = await group_info.create({ groupname: groupname });
 
-    await group_info
-      .findOrCreate({ where: { groupname: groupname } })
-      .then(async (result) => {
-        if (!result[1]) res.status(409).send('Duplicate group name exists');
-        else {
+        await Promise.all(
+          data.map((el) =>
+            users_groups.create({
+              groupid: groupid.dataValues.id,
+              userid: el.dataValues.id,
+            }),
+          ),
+        );
+        res.status(200).send('succesfully created');
+      }
+    });
+  },
+
+  edit: async (req, res) => {
+    const { groupid, groupDelete, groupname, emails } = req.body;
+    if (groupDelete) {
+      await users_groups
+        .findAll({
+          where: { groupid },
+          attributes: ['userid'],
+        })
+        .then(
+          async (data) =>
+            await Promise.all(
+              data.map((el) => {
+                user.decrement('group', {
+                  where: { id: el.dataValues.userid },
+                });
+              }),
+            ),
+        );
+
+      await group_info.destroy({ where: { id: groupid } });
+      await group_todocard.destroy({ where: { id: groupid } });
+      await users_groups.destroy({
+        where: { groupid },
+        attributes: ['userid'],
+      });
+
+      res.status(200).send('succesfully deleted');
+    } else {
+      // userid찾아주기
+      await users_groups
+        .findAll({
+          where: { groupid },
+          attributes: ['userid'],
+        })
+        .then(
+          // group 갯수 내려주기
+          async (data) =>
+            await Promise.all(
+              data.map((el) => {
+                user.decrement('group', {
+                  where: { id: el.dataValues.userid },
+                });
+              }),
+            ),
+        );
+
+      // 새로운 그룹 정보 저장
+      const newGroupid = await group_info.create({ groupname });
+      await group_todocard.update(
+        { groupid: newGroupid.dataValues.id },
+        { where: { groupid } },
+      );
+
+      await group_info.destroy({ where: { id: groupid } }); // 해당 관련 그룹 정보 삭제
+      await users_groups.destroy({ where: { groupid } }); // 조인테이블에서도 삭제
+
+      await Promise.all(
+        emails.map((email) =>
+          user.findOne({ where: { email }, attributes: ['id'] }),
+        ), // 수정 된 이메일이 존재하는 지 확인
+      ).then(async (data) => {
+        // ? -1이면, 모든 이메일 valid, 양수가 나오면 특정 이메일이 invalid
+        const indexNull = data.indexOf(null);
+        if (indexNull !== -1) {
+          return res.status(409).send('invalid email');
+        } else {
+          // 이메일 존재하면 다시 그룹 갯수 올려주기
           await Promise.all(
-            userList.map((user) =>
+            data.map((el) =>
+              user.increment('group', { where: { id: el.dataValues.id } }),
+            ),
+          );
+
+          await Promise.all(
+            // 해당 유저 정보로 조인테이블 업데이트
+            data.map((el) =>
               users_groups.create({
-                userid: user.dataValues.id,
-                groupid: result[0].dataValues.id,
+                groupid: newGroupid.dataValues.id,
+                userid: el.dataValues.id,
               }),
             ),
           );
-          res.status(200).send('succesfully created');
+          res.status(200).send('succesfully edited');
         }
-      })
-      .catch((err) => res.status(500).send(err));
-  },
-
-  edit: (req, res) => {
-    res.send('ok');
+      });
+    }
   },
 };
