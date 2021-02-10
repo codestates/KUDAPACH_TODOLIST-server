@@ -32,6 +32,7 @@ module.exports = {
           );
           res.status(200).send('succesfully created');
         }
-      });
+      })
+      .catch((err) => res.status(500).send(err));
   },
 };
