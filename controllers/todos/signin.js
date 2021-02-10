@@ -1,4 +1,4 @@
-const { user } = require('../../models');
+const { user, users_groups, group_info } = require('../../models');
 const SHA256 = require('crypto-js/sha256');
 
 module.exports = {
@@ -21,15 +21,36 @@ module.exports = {
           delete data.dataValues.password;
           delete data.dataValues.createdAt;
           delete data.dataValues.updatedAt;
-          // 그룹 리스트까지도 보내줘야함
-          res.cookie('id', data.dataValues.id, {
-            domain: ['https://kudapach.com', 'https://www.kudapach.com'],
-            path: '/',
-            sameSite: 'none',
-            httpOnly: true,
-            secure: true,
-          });
-          res.send({ data: data, message: 'Sign in successful!' });
+          users_groups
+            .findAll({
+              where: { userid: data.dataValues.id },
+              attributes: ['groupid'],
+            })
+            .then(async (dat) => {
+              let groupname = await Promise.all(
+                dat.map((el) =>
+                  group_info.findOne({
+                    where: { id: el.groupid },
+                    attributes: ['groupname'],
+                  }),
+                ),
+              );
+              res.cookie('id', data.dataValues.id, {
+                domain: ['https://kudapach.com', 'https://www.kudapach.com'],
+                path: '/',
+                sameSite: 'none',
+                httpOnly: true,
+                secure: true,
+              });
+              res.send({
+                data: data.dataValues,
+                groups: dat,
+                groupnames: groupname,
+              });
+            })
+            .catch((err) => {
+              res.send(err);
+            });
         }
       })
       .catch((err) => {

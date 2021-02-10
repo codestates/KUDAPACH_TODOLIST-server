@@ -1,10 +1,10 @@
-const { user } = require('../../models');
+const { user, users_groups, group_info } = require('../../models');
 
 module.exports = {
-  post: (req, res) => {
+  post: async (req, res) => {
     const { email, username } = req.body;
 
-    user
+    await user
       .findOrCreate({
         where: { email },
         defaults: {
@@ -14,12 +14,42 @@ module.exports = {
         },
       })
       .then((result) => {
-        if (!result[1]) {
-          res.status(409).send('Duplicate email exists');
-        } else {
-          res.status(200).send('Succesfully signed up');
-        }
+        delete result[0].password;
+        delete result[0].createdAt;
+        delete result[0].updatedAt;
+        users_groups
+          .findAll({
+            where: { userid: result[0].id },
+            attributes: ['groupid'],
+          })
+          .then(async (dat) => {
+            let groupname = await Promise.all(
+              dat.map((el) =>
+                group_info.findOne({
+                  where: { id: el.groupid },
+                  attributes: ['groupname'],
+                }),
+              ),
+            );
+            res.cookie('id', result[0].id, {
+              domain: ['https://kudapach.com', 'https://www.kudapach.com'],
+              path: '/',
+              sameSite: 'none',
+              httpOnly: true,
+              secure: true,
+            });
+            res.send({
+              data: result[0],
+              groups: dat,
+              groupnames: groupname,
+            });
+          })
+          .catch((err) => {
+            res.send(err);
+          });
       })
-      .catch((err) => res.status(500).send(err));
+      .catch((err) => {
+        res.status(500).send(err);
+      });
   },
 };
