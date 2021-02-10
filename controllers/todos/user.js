@@ -19,23 +19,33 @@ module.exports = {
   },
 
   edit: async (req, res) => {
-    const { username, mobile, password } = req.body;
-    if (!password) {
+    const { username, mobile, oldPassword, newPassword } = req.body;
+    if (!newPassword) {
+      await user
+        .update({ username, mobile }, { where: { id: req.cookies.id } })
+        .then(() => res.status(200).send('Succesfully updated'))
+        .catch((err) => res.status(500).send(err));
+    } else {
       await user.update(
         { username, mobile },
         { where: { id: req.cookies.id } },
       );
-    } else {
-      await user.update(
-        { username, mobile, password },
-        { where: { id: req.cookies.id } },
-      );
+
+      await user
+        .findOne({ where: { id: req.cookies.id } })
+        .then(async (data) => {
+          if (data.dataValues.password !== oldPassword) {
+            res.status(409).send('wrong password');
+          } else {
+            await user
+              .update(
+                { username, mobile, password: newPassword },
+                { where: { id: req.cookies.id } },
+              )
+              .then(() => res.status(200).send('Succesfully updated'))
+              .catch((err) => res.status(500).send(err));
+          }
+        });
     }
-    await user
-      .findOne({ where: { id: req.cookies.id } })
-      .then(() => {
-        res.status(200).send('Succesfully updated');
-      })
-      .catch((err) => res.status(500).send(err));
   },
 };
