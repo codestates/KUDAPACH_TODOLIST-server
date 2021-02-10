@@ -32,7 +32,7 @@ router.post('/todo/edit', controllers.todo.edit);
 router.post('/todo/calendar', controllers.todo.calendar);
 
 // * GET https://server.kudapach.com/group
-router.post('/group', controllers.group.get);
+router.get('/group', controllers.group.get);
 
 // * POST https://server.kudapach.com/setting/group/edit
 router.post('/setting/group/edit', controllers.setting.post);
