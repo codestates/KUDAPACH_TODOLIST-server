@@ -42,6 +42,7 @@ module.exports = {
               data: result[0],
               groups: dat,
               groupnames: groupname,
+              oauth: true,
             });
           })
           .catch((err) => {
