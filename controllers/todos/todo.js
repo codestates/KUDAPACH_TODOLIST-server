@@ -4,7 +4,6 @@ const Op = sequelize.Op;
 
 module.exports = {
   get: async (req, res) => {
-    // console.log(req.cookies);
     const id = req.cookies.id;
     await user
       .findOne({
