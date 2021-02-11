@@ -4,10 +4,10 @@ const Op = sequelize.Op;
 
 module.exports = {
   get: async (req, res) => {
-    const { email } = req.body;
+    const id = req.cookies.id;
     await user
       .findOne({
-        where: { email },
+        where: { id },
       })
       .then((data) =>
         todocard
