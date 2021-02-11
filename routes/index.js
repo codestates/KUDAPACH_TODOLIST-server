@@ -23,7 +23,7 @@ router.get('/user/info', controllers.user.get);
 router.post('/user/info/edit', controllers.user.edit);
 
 // * POST https://server.kudapach.com/todo
-router.post('/todo', controllers.todo.get);
+router.get('/todo', controllers.todo.get);
 
 // * POST https://server.kudapach.com/todo/edit
 router.post('/todo/edit', controllers.todo.edit);
