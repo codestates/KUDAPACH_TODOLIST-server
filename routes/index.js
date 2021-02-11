@@ -14,7 +14,7 @@ router.post('/signin', controllers.signin.post);
 router.post('/signup', controllers.signup.post);
 
 // * POST https://server.kudapach.com/signout
-router.post('/signout', controllers.signout);
+router.post('/signout', controllers.signout.post);
 
 // * GET https://server.kudapach.com/user/info
 router.get('/user/info', controllers.user.get);

@@ -1,5 +1,5 @@
 const { user, users_groups, group_info } = require('../../models');
-const SHA256 = require('crypto-js/sha256');
+const SHA256 = require('sha256');
 
 module.exports = {
   post: async (req, res) => {
