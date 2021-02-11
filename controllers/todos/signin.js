@@ -42,7 +42,7 @@ module.exports = {
                 httpOnly: true,
                 secure: true,
               });
-              res.send({
+              res.status(200).send({
                 data: data.dataValues,
                 groups: dat,
                 groupnames: groupname,
