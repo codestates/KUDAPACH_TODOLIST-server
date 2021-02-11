@@ -38,7 +38,7 @@ module.exports = {
               httpOnly: true,
               secure: true,
             });
-            res.send({
+            res.status(200).send({
               data: result[0],
               groups: dat,
               groupnames: groupname,
@@ -46,7 +46,7 @@ module.exports = {
             });
           })
           .catch((err) => {
-            res.send(err);
+            res.status(500).send(err);
           });
       })
       .catch((err) => {
