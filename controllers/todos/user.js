@@ -4,7 +4,7 @@ module.exports = {
   get: async (req, res) => {
     const id = req.cookies.id;
 
-    user
+    await user
       .findOne({ where: { id } })
       .then((data) => {
         if (!data) {
