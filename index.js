@@ -12,7 +12,11 @@ app.use(express.json());
 app.use(logger('dev'));
 app.use(
   cors({
-    origin: ['https://kudapach.com', 'https://www.kudapach.com'],
+    origin: [
+      'https://server.kudapach.com',
+      'https://kudapach.com',
+      'https://www.kudapach.com',
+    ],
     method: ['GET', 'POST', 'OPTION'],
     credentials: true,
   }),

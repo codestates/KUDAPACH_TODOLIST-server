@@ -35,18 +35,20 @@ module.exports = {
                   }),
                 ),
               );
-              res.cookie('id', data.dataValues.id, {
-                domain: ['https://kudapach.com', 'https://www.kudapach.com'],
-                path: '/',
-                sameSite: 'none',
-                httpOnly: true,
-                secure: true,
-              });
-              res.status(200).send({
-                data: data.dataValues,
-                groups: dat,
-                groupnames: groupname,
-              });
+              res
+                .status(200)
+                .cookie('id', data.dataValues.id, {
+                  // domain: ['https://kudapach.com', 'https://www.kudapach.com'],
+                  // path: '/',
+                  sameSite: 'none',
+                  httpOnly: true,
+                  secure: true,
+                })
+                .json({
+                  data: data.dataValues,
+                  groups: dat,
+                  groupnames: groupname,
+                });
             })
             .catch((err) => {
               res.status(500).send(err);

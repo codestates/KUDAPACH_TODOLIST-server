@@ -5,16 +5,16 @@ const Op = sequelize.Op;
 module.exports = {
   get: async (req, res) => {
     const id = req.cookies.id;
+
     await user
       .findOne({
         where: { id },
       })
       .then((data) =>
-        todocard
-          .findAll({ where: { userid: data.id } })
-          .then((data) => res.status(200).send({ data: data }))
-          .catch((err) => res.status(500).send(err)),
-      );
+        todocard.findAll({ where: { userid: data.dataValues.id } }),
+      )
+      .then((data) => res.status(200).json({ data: data.dataValues }))
+      .catch((err) => res.status(500).send(err));
   },
 
   edit: async (req, res) => {
@@ -46,6 +46,6 @@ module.exports = {
           },
         },
       })
-      .then((data) => res.status.send(data));
+      .then((data) => res.status(200).send(data));
   },
 };

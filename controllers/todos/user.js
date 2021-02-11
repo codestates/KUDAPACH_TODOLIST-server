@@ -3,8 +3,9 @@ const { user } = require('../../models');
 module.exports = {
   get: async (req, res) => {
     const id = req.cookies.id;
+
     user
-      .findOne({ where: id })
+      .findOne({ where: { id } })
       .then((data) => {
         if (!data) {
           res.status(401).send('cookie err');
