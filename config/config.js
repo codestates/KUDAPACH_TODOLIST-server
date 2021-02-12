@@ -15,6 +15,7 @@ module.exports = {
     define: {
       timestamps: true,
     },
+//   timezone: '-09:00',
   },
   test: {
     username: process.env.USERNAME,

@@ -22,9 +22,9 @@ module.exports = {
     const { color } = req.body;
 
     await todocard.create({
-        userid: id,
-        color,
-      });
+      userid: id,
+      color,
+    });
 
     res.status(200).send('succesfully created');
   },
@@ -50,14 +50,16 @@ module.exports = {
   calendar: async (req, res) => {
     const { date } = req.body;
     // date form `2020-02-02`
+
     await todocard
       .findAll({
         where: {
           updatedAt: {
             [Op.between]: [`${date} 00:00:00`, `${date} 23:59:59`],
           },
+	  userid: req.cookies.id,
         },
       })
-      .then((data) => res.status(200).send(data));
+      .then((data) => res.status(200).send({ data }));
   },
 };
