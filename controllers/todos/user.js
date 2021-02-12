@@ -1,4 +1,5 @@
 const { user } = require('../../models');
+const SHA256 = require('sha256');
 
 module.exports = {
   get: async (req, res) => {
@@ -20,13 +21,16 @@ module.exports = {
   },
 
   edit: async (req, res) => {
-    const { username, mobile, oldPassword, newPassword } = req.body;
-    if (!newPassword) {
+    const { username, mobile, currentPassword, password } = req.body;
+
+    if (!currentPassword) {
       await user
         .update({ username, mobile }, { where: { id: req.cookies.id } })
         .then(() => res.status(200).send('Succesfully updated'))
         .catch((err) => res.status(500).send(err));
     } else {
+      const oldPassword = SHA256(currentPassword);
+      const newPassword = SHA256(password);
       await user.update(
         { username, mobile },
         { where: { id: req.cookies.id } },

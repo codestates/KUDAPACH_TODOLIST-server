@@ -21,12 +21,10 @@ module.exports = {
     const id = req.cookies.id;
     const { color } = req.body;
 
-    await user.findOne({ where: { id }, attributes: ['id'] }).then((data) =>
-      todocard.create({
-        userid: data.dataValues.id,
+    await todocard.create({
+        userid: id,
         color,
-      }),
-    );
+      });
 
     res.status(200).send('succesfully created');
   },

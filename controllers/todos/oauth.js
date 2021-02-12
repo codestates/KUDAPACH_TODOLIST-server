@@ -10,7 +10,7 @@ module.exports = {
         defaults: {
           password: 'null',
           username,
-          mobile: 'null',
+          mobile: 'Please update your mobile number',
         },
       })
       .then((result) => {
@@ -31,14 +31,14 @@ module.exports = {
                 }),
               ),
             );
-            res.cookie('id', result[0].id, {
-              domain: ['https://kudapach.com', 'https://www.kudapach.com'],
-              path: '/',
+            res.status(200).cookie('id', result[0].id, {
+             // domain: ['https://kudapach.com', 'https://www.kudapach.com'],
+             //  path: '/',
               sameSite: 'none',
               httpOnly: true,
               secure: true,
-            });
-            res.status(200).send({
+            })
+            .json({
               data: result[0],
               groups: dat,
               groupnames: groupname,
