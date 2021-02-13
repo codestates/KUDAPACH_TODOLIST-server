@@ -7,17 +7,16 @@ const {
 
 module.exports = {
   get: async (req, res) => {
-    const id = req.cookies.id;
-    const groupid = await users_groups.findOne({ where: { userid: id } });
+    const { groupid } = req.body;
     const groupname = await group_info.findOne({
-      where: { id: groupid.dataValues.groupid },
+      where: { id: groupid },
     });
     const groupCards = await group_todocard.findAll({
-      where: { groupid: groupname.dataValues.id },
+      where: { groupid },
       attributes: ['id', 'text', 'color'],
     });
     const userIds = await users_groups.findAll({
-      where: { groupid: groupid.dataValues.id },
+      where: { groupid },
       attributes: ['userid'],
     });
     const userList = await Promise.all(
@@ -34,6 +33,18 @@ module.exports = {
       users: userList,
       data: groupCards,
     });
+  },
+
+  create: async (req, res) => {
+    const { color, groupid } = req.body;
+
+    await group_todocard
+      .create({
+        groupid,
+        color,
+      })
+      .then(() => res.status(200).send('successfully created'))
+      .catch((err) => res.status(500).send(err));
   },
 
   edit: async (req, res) => {
