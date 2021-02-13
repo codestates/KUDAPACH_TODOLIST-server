@@ -7,15 +7,12 @@ const {
 
 module.exports = {
   post: async (req, res) => {
-    const { groupname } = req.body;
+    const { groupid } = req.body;
 
-    const groupid = await group_info.findOne({
-      where: { groupname },
-      attributes: ['id'],
-    });
+    const groupname = await group_info.findOne({ where: { id: groupid } });
 
     const userIds = await users_groups.findAll({
-      where: { groupid: groupid.dataValues.id },
+      where: { groupid },
       attributes: ['userid'],
     });
 
@@ -29,7 +26,7 @@ module.exports = {
     );
 
     res.status(200).json({
-      groupname: req.body.groupname,
+      groupname: groupname.dataValues.groupname,
       emails,
     });
   },

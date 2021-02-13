@@ -43,8 +43,11 @@ router.post('/grouptodocard/create', controllers.grouptodocard.create);
 // * POST https://server.kudapach.com/grouptodocard/edit
 router.post('/grouptodocard/edit', controllers.grouptodocard.edit);
 
+// * POST https://server.kudapach.com/grouptodocard/calendar
+router.post('/grouptodocard/calendar', controllers.grouptodocard.calendar);
+
 // * POST https://server.kudapach.com/groupsetting
-router.post('/groupsetting/create', controllers.groupsetting.post);
+router.post('/groupsetting', controllers.groupsetting.post);
 
 // * POST https://server.kudapach.com/groupsetting/create
 router.post('/groupsetting/create', controllers.groupsetting.create);

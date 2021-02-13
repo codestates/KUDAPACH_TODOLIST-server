@@ -10,7 +10,7 @@ module.exports = {
         defaults: {
           password: 'null',
           username,
-          mobile: 'Please update your mobile number',
+          mobile: ' ',
         },
       })
       .then((result) => {
