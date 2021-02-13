@@ -8,14 +8,17 @@ module.exports = {
     host: process.env.HOST,
     dialect: 'mysql',
     dialectOptions: {
-      charset: 'utf8mb4',
+      useUTC: false, // for reading from database
       dateStrings: true,
-      typeCast: true,
+      typeCast: function (field, next) {
+        // for reading from database
+        if (field.type === 'DATETIME') {
+          return field.string();
+        }
+        return next();
+      },
     },
-    define: {
-      timestamps: true,
-    },
-    //   timezone: '-09:00',
+    timezone: '+09:00',
   },
   test: {
     username: process.env.USERNAME,
