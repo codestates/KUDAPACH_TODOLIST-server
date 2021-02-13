@@ -57,7 +57,7 @@ module.exports = {
           updatedAt: {
             [Op.between]: [`${date} 00:00:00`, `${date} 23:59:59`],
           },
-	  userid: req.cookies.id,
+          userid: req.cookies.id,
         },
       })
       .then((data) => res.status(200).send({ data }));
