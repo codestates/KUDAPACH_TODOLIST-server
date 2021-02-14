@@ -55,4 +55,7 @@ router.post('/groupsetting/create', controllers.groupsetting.create);
 // * POST https://server.kudapach.com/groupsetting/edit
 router.post('/groupsetting/edit', controllers.groupsetting.edit);
 
+// * GET https://server.kudapch.com/groupsetting/groupinfo
+router.get('/groupsetting/groupinfo', controllers.groupsetting.get);
+
 module.exports = router;
