@@ -146,7 +146,7 @@ module.exports = {
               }),
             ),
           );
-          res.status(200).send({ groupid: newGroupid.dataValues.id } );
+          res.status(200).send({ groupid: newGroupid.dataValues.id });
         }
       });
     }
