@@ -59,7 +59,7 @@ module.exports = {
             }),
           ),
         );
-        res.status(200).send('succesfully created');
+        res.status(200).send({ groupid: groupid.dataValues.id });
       }
     });
   },
@@ -146,7 +146,7 @@ module.exports = {
               }),
             ),
           );
-          res.status(200).send('succesfully edited');
+          res.status(200).send({ groupid: newGroupid.dataValues.id } );
         }
       });
     }
